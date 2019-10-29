@@ -3,7 +3,8 @@ import { Route, Switch } from 'react-router-dom'
 import Manage from './pages/manages'
 import Login from './pages/login'
 
-import './App.scss'
+import './styles/common.scss'
+// import './App.scss'
 
 function App() {
   return (

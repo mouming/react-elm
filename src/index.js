@@ -5,6 +5,9 @@ import { Provider } from 'react-redux'
 import store from './store'
 import App from './App'
 
+// 全局引入antd样式
+import 'antd/dist/antd.css'
+
 ReactDOM.render(
   <Provider store={store}>
     <HashRouter>

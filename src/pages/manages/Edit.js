@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import E from 'wangeditor'
+import { Button } from 'antd'
+
+import './Edit.scss'
 
 class Edit extends Component {
   constructor(props) {
@@ -51,6 +54,9 @@ class Edit extends Component {
         <div className="text-area">
           <div ref="editMenu" className="editMenu"></div>
           <div ref="editBody" className="editBody"></div>
+        </div>
+        <div className="submit-text">
+          <Button type="primary">提交</Button>
         </div>
       </div>
     )

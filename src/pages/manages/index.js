@@ -6,6 +6,7 @@ import Home from './Home'
 import Explanation from './Explanation'
 import AdminInfo from './AdminInfo'
 import Edit from './Edit'
+import Visitor from './Visitor'
 import './index.scss'
 
 const { Header, Sider, Content } = Layout
@@ -22,7 +23,7 @@ class Manage extends Component {
           <Menu
             onClick={this.handleClick}
             defaultSelectedKeys={['0']}
-            defaultOpenKeys={['sub1']}
+            defaultOpenKeys={[]}
             mode="inline"
             theme="dark"
           >
@@ -117,6 +118,7 @@ class Manage extends Component {
             </div>
           </Header>
           <Content className="main-content">
+            <Route path="/manage" exact component={Home}></Route>
             <Route
               path="/manage/explanation"
               exact
@@ -124,6 +126,7 @@ class Manage extends Component {
             ></Route>
             <Route path="/manage/adminSet" exact component={AdminInfo}></Route>
             <Route path="/manage/edit" exact component={Edit}></Route>
+            <Route path="/manage/visitor" exact component={Visitor}></Route>
           </Content>
         </Layout>
       </Layout>

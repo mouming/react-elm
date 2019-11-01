@@ -11,6 +11,7 @@ import AddShop from './AddShop'
 import AddGood from './AddGood'
 import AdminList from './AdminList'
 import OrderList from './OrderList'
+import UserList from './UserList'
 
 import './index.scss'
 
@@ -136,6 +137,7 @@ class Manage extends Component {
             <Route path="/manage/addGood" exact component={AddGood}></Route>
             <Route path="/manage/adminList" exact component={AdminList}></Route>
             <Route path="/manage/orderList" exact component={OrderList}></Route>
+            <Route path="/manage/userList" exact component={UserList}></Route>
           </Content>
         </Layout>
       </Layout>

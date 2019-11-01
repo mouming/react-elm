@@ -1,0 +1,50 @@
+$tr: 30px;
+.add-good {
+  .form-header {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .category-form {
+    border: 1px solid #eaeefb;
+    border-radius: 6px;
+    padding-top: 5px;
+    padding-right: $tr;
+    &:hover {
+      box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+        0 2px 4px 0 rgba(232, 237, 250, 0.5);
+      transition: all 400ms;
+    }
+    .add-category {
+      background: #f9fafc;
+      margin-right: -$tr;
+      padding-right: $tr;
+      padding-bottom: 5px;
+    }
+    .add-category-btn {
+      margin-right: -$tr;
+      height: 40px;
+      line-height: 40px;
+      button {
+        color: #999;
+      }
+      &:hover {
+        background: #f9fafc;
+        button {
+          color: #20a0ff;
+        }
+      }
+    }
+  }
+  .borderline {
+    margin-right: -$tr;
+    &::after {
+      content: '';
+      height: 1px;
+      line-height: 1px;
+      display: block;
+      border-bottom: 1px solid #eaeefb;
+    }
+  }
+}

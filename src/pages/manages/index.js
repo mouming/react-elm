@@ -7,6 +7,9 @@ import Explanation from './Explanation'
 import AdminInfo from './AdminInfo'
 import Edit from './Edit'
 import Visitor from './Visitor'
+import AddShop from './AddShop'
+import AddGood from './AddGood'
+
 import './index.scss'
 
 const { Header, Sider, Content } = Layout
@@ -127,6 +130,8 @@ class Manage extends Component {
             <Route path="/manage/adminSet" exact component={AdminInfo}></Route>
             <Route path="/manage/edit" exact component={Edit}></Route>
             <Route path="/manage/visitor" exact component={Visitor}></Route>
+            <Route path="/manage/addShop" exact component={AddShop}></Route>
+            <Route path="/manage/addGood" exact component={AddGood}></Route>
           </Content>
         </Layout>
       </Layout>

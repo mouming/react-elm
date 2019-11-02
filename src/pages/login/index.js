@@ -29,7 +29,11 @@ class NormalLoginForm extends React.Component {
               loading: false
             })
             if (res.data.status === 1) {
+              //将状态信息存入状态库
               this.props.toLogin(values)
+              // 将信息存入本地存储
+              window.sessionStorage.setItem('userInfo', JSON.stringify(values))
+              //提示登录成功
               message.success(res.data.success)
               // 登录成功后跳转到首页
               this.props.history.replace('/manage')

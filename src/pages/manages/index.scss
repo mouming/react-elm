@@ -28,6 +28,28 @@
         color: #ffffffa6;
       }
     }
+    .avatar {
+      position: relative;
+      .login-out {
+        position: absolute;
+        display: none;
+        top: 60px;
+        transition: all 3s;
+        background: #fff;
+        z-index: 999;
+        width: 100px;
+        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+        transform-origin: center top;
+        box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+          0 2px 4px 0 rgba(154, 157, 165, 0.5);
+        p {
+          margin: 10px 0;
+          line-height: 30px;
+        }
+      }
+    }
   }
   .ant-layout {
     background: #fff;

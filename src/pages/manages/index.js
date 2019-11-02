@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Layout, Breadcrumb, Avatar, Menu, Icon } from 'antd'
+import { Layout, Breadcrumb, Avatar, Menu, Icon, Button, message } from 'antd'
 import { Route, NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import Home from './Home'
 import Explanation from './Explanation'
@@ -15,6 +16,8 @@ import UserList from './UserList'
 import FoodList from './FoodList'
 import ShopList from './ShopList'
 
+//引入所需发送请求的方法
+import { singout } from '../../api/getData'
 import './index.scss'
 
 const { Header, Sider, Content } = Layout
@@ -26,12 +29,14 @@ class Manage extends Component {
     this.state = {
       breadcrumb: [],
       clickKey: '',
-      openKey: ''
+      openKey: '',
+      loginOutStyles: {}
     }
   }
   handleClick = e => {
     console.log(1)
     if (e.key === this.state.clickKey) return
+    // 修改面包屑的显示效果
     let breadcrumb = []
     if (e.keyPath.length === 1) {
       breadcrumb = ['首页']
@@ -42,7 +47,7 @@ class Manage extends Component {
     }
     this.setState({
       breadcrumb,
-      clickKey: e.key
+      clickKey: e.key //确认导航菜单栏的高亮位置
     })
   }
   handleSubMenu = openKey => {
@@ -52,6 +57,39 @@ class Manage extends Component {
     }
     this.setState({
       openKey: key
+    })
+  }
+  showLogin = () => {
+    this.setState({
+      loginOutStyles: {
+        display: 'block'
+      }
+    })
+  }
+  hiddenLogin = () => {
+    this.setState({
+      loginOutStyles: {}
+    })
+  }
+  toHome = () => {
+    this.setState({
+      breadcrumb: ['首页'],
+      clickKey: '首页',
+      openKey: ''
+    })
+  }
+  loginOut = () => {
+    singout().then(res => {
+      if (res.data.status === 1) {
+        message.success(res.data.success)
+        //删除状态库中的用户登录信息
+        this.props.deleteUser()
+        // 删除本地的用户登录信息
+        window.sessionStorage.setItem('userInfo', '')
+        this.props.history.push('/')
+      } else {
+        message.error(res.data.message)
+      }
     })
   }
   render() {
@@ -183,8 +221,24 @@ class Manage extends Component {
                 return <Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>
               })}
             </Breadcrumb>
-            <div>
+            <div
+              className="avatar"
+              onMouseEnter={this.showLogin}
+              onMouseLeave={this.hiddenLogin}
+            >
               <Avatar size="large" icon="user" className="avatar" />
+              <div className="login-out" style={this.state.loginOutStyles}>
+                <p>
+                  <NavLink to="/manage" onClick={this.toHome}>
+                    首页
+                  </NavLink>
+                </p>
+                <p>
+                  <Button type="link" onClick={this.loginOut}>
+                    退出
+                  </Button>
+                </p>
+              </div>
             </div>
           </Header>
           <Content className="main-content">
@@ -282,4 +336,13 @@ class Manage extends Component {
     })
   }
 }
-export default Manage
+export default connect(
+  null,
+  dispatch => ({
+    deleteUser: () => {
+      dispatch({
+        type: 'DELETE_USER'
+      })
+    }
+  })
+)(Manage)

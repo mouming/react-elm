@@ -1,15 +1,43 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Form, Icon, Input, Button, message } from 'antd'
 
-import { Form, Icon, Input, Button } from 'antd'
+//获取页面所需的请求方法
+import { login } from '../../api/getData'
 import './index.scss'
 
 class NormalLoginForm extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      loading: false
+    }
+  }
   handleSubmit = e => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.toLogin(values)
+        // 防抖 ，启动状态
+        this.setState({
+          loading: true
+        })
+        // 发送登录请求
+        login({ user_name: values.username, password: values.password }).then(
+          res => {
+            //防抖 ， 关闭状态
+            this.setState({
+              loading: false
+            })
+            if (res.data.status === 1) {
+              this.props.toLogin(values)
+              message.success(res.data.success)
+              // 登录成功后跳转到首页
+              this.props.history.replace('/manage')
+            } else {
+              message.error(res.data.message)
+            }
+          }
+        )
       }
     })
   }
@@ -49,10 +77,11 @@ class NormalLoginForm extends React.Component {
             <Form.Item>
               <Button
                 type="primary"
+                loading={this.state.loading}
                 htmlType="submit"
                 className="login-form-button"
               >
-                Log in
+                登录
               </Button>
             </Form.Item>
           </Form>

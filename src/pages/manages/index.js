@@ -25,10 +25,12 @@ class Manage extends Component {
     super()
     this.state = {
       breadcrumb: [],
-      clickKey: ''
+      clickKey: '',
+      openKey: ''
     }
   }
   handleClick = e => {
+    console.log(1)
     if (e.key === this.state.clickKey) return
     let breadcrumb = []
     if (e.keyPath.length === 1) {
@@ -43,8 +45,17 @@ class Manage extends Component {
       clickKey: e.key
     })
   }
+  handleSubMenu = openKey => {
+    let key = ''
+    if (openKey.length) {
+      key = openKey.pop()
+    }
+    this.setState({
+      openKey: key
+    })
+  }
   render() {
-    let { clickKey, breadcrumb } = this.state
+    let { clickKey, openKey } = this.state
     return (
       <Layout className="manage">
         <Sider
@@ -59,9 +70,10 @@ class Manage extends Component {
           <Menu
             onClick={this.handleClick}
             selectedKeys={[clickKey]}
-            openKeys={[breadcrumb[1]]}
+            openKeys={[openKey]}
             mode="inline"
             theme="dark"
+            onOpenChange={this.handleSubMenu}
           >
             <Menu.Item key="首页">
               <NavLink to="/manage">
@@ -201,50 +213,62 @@ class Manage extends Component {
     let keyName = this.props.location.pathname.split('/').pop()
     let newBreadcrumb = ['首页']
     let key = '首页'
+    let openKey = ''
     if (keyName !== 'manage') {
       switch (keyName) {
         case 'userList':
           newBreadcrumb.push('数据管理', '用户列表')
+          openKey = '数据管理'
           key = '用户列表'
           break
         case 'shopList':
           newBreadcrumb.push('数据管理', '商家列表')
+          openKey = '数据管理'
           key = '商家列表'
           break
         case 'foodList':
           newBreadcrumb.push('数据管理', '食品列表')
+          openKey = '数据管理'
           key = '食品列表'
           break
         case 'orderList':
           newBreadcrumb.push('数据管理', '订单列表')
+          openKey = '数据管理'
           key = '订单列表'
           break
         case 'adminList':
           newBreadcrumb.push('数据管理', '管理员列表')
+          openKey = '数据管理'
           key = '管理员列表'
           break
         case 'addShop':
           newBreadcrumb.push('添加数据', '添加商铺')
+          openKey = '添加数据'
           key = '添加商铺'
           break
         case 'addGood':
           newBreadcrumb.push('添加数据', '添加商品')
+          openKey = '添加数据'
           key = '添加商品'
           break
         case 'visitor':
           newBreadcrumb.push('图表', '用户分布')
+          openKey = '图表'
           key = '用户分布'
           break
         case 'edit':
           newBreadcrumb.push('编辑', '文本编辑')
+          openKey = '编辑'
           key = '文本编辑'
           break
         case 'adminSet':
           newBreadcrumb.push('设置', '管理员设置')
+          openKey = '设置'
           key = '管理员设置'
           break
         case 'explanation':
           newBreadcrumb.push('说明', '说明')
+          openKey = '说明'
           key = '说明'
           break
         default:
@@ -253,7 +277,8 @@ class Manage extends Component {
     }
     this.setState({
       breadcrumb: newBreadcrumb,
-      clickKey: key
+      clickKey: key,
+      openKey
     })
   }
 }

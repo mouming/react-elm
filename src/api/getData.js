@@ -52,6 +52,19 @@ export const orderCount = date => axios.get('/statis/order/' + date + '/count')
 //所有订单量
 export const allOrderCount = () => axios.get('/bos/orders/count')
 
+// 订单列表
+/**
+ *
+ * @param {Object} data
+ * 必传的两个属性
+ * limit : number(获取数据数量，默认 20)
+ * offset: number(跳过数据条数 默认 0)
+ */
+export const orderList = data =>
+  axios.get(
+    '/bos/orders?limit=' + (data.limit || 20) + '&offset=' + (data.offset || 0)
+  )
+
 //当天管理员注册量
 /**
  *
@@ -73,4 +86,32 @@ export const allAdminCount = () => axios.get('/admin/count')
  * offset: number(跳过数据条数 默认 0)
  */
 export const userList = data =>
-  axios.get('/v1/users/list?limit=' + data.limit + '&offset=' + data.offset)
+  axios.get(
+    '/v1/users/list?limit=' +
+      (data.limit || 20) +
+      '&offset=' +
+      (data.offset || 0)
+  )
+
+// 获取用户信息
+/**
+ * 获取用户信息
+ * @param {Number} user_id
+ */
+export const userInfo = user_id => axios.get('v1/user/' + user_id)
+
+// 获取地址信息
+/**
+ * 获取地址信息
+ * @param {Number} id
+ *
+ */
+export const getAddress = id => axios.get('/v1/addresse/' + id)
+
+//餐馆详细信息
+/**
+ * 获取地址信息
+ * @param {Number} id
+ * id : 地址id
+ */
+export const getShopInfo = id => axios.get('/shopping/restaurant/' + id)

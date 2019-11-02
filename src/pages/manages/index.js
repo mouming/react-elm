@@ -250,11 +250,11 @@ class Manage extends Component {
         default:
           break
       }
-      this.setState({
-        breadcrumb: newBreadcrumb,
-        clickKey: key
-      })
     }
+    this.setState({
+      breadcrumb: newBreadcrumb,
+      clickKey: key
+    })
   }
 }
 export default Manage

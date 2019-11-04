@@ -129,3 +129,44 @@ export const getAddress = id => axios.get('/v1/addresse/' + id)
  * id : 地址id
  */
 export const getShopInfo = id => axios.get('/shopping/restaurant/' + id)
+
+//  获取食品列表
+/**
+ * 获取食品列表数据
+ * @param {Object} data
+ * @param {Number} data.limit
+ * @param {Number} data.offset
+ */
+export const getFoodList = data =>
+  axios.get(
+    '/shopping/v2/foods?limit=' + data.limit + '&offset=' + (data.offset || 0)
+  )
+
+// 食品总数
+export const allFoodCount = () => axios.get('/shopping/v2/foods/count')
+
+// 获取食品的分类信息
+/**
+ *
+ * @param {Number} id
+ * id: (食品的分类id)
+ */
+export const getFoodCategory = id => axios.get('/shopping/v2/menu/' + id)
+
+// 获取店铺食品分类列表
+/**
+ *
+ * @param {Number} id
+ * id: (店铺的id)
+ */
+export const getFoodCategoryList = id =>
+  axios.get('/shopping/v2/menu?restaurant_id=' + id)
+
+// 更新食品
+/**
+ * 更新食品数据
+ * @param {Object} data
+ * post 请求
+ */
+export const updateFoodInfo = data =>
+  axios.post('/shopping/v2/updatefood', data)

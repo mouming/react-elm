@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import E from 'wangeditor'
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 
 import './Edit.scss'
 
@@ -11,13 +11,15 @@ class Edit extends Component {
       editorContent: ''
     }
   }
+  toTitle() {
+    message.success('提交成功')
+  }
   componentDidMount() {
     const elemMenu = this.refs.editMenu
     const elemBody = this.refs.editBody
     const editor = new E(elemMenu, elemBody)
     // 使用 onchange 函数监听内容的变化，并实时更新到 state 中
     editor.customConfig.onchange = html => {
-      console.log(editor.txt.html())
       this.setState({
         // editorContent: editor.txt.text()
         editorContent: editor.txt.html()
@@ -56,7 +58,9 @@ class Edit extends Component {
           <div ref="editBody" className="editBody"></div>
         </div>
         <div className="submit-text">
-          <Button type="primary">提交</Button>
+          <Button type="primary" onClick={this.toTitle}>
+            提交
+          </Button>
         </div>
       </div>
     )

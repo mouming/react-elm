@@ -14,15 +14,15 @@ export const login = data => axios.post('/admin/login', data)
 export const singout = () => axios.get('/admin/singout')
 
 //管理员信息
+export const getAdminInfo = () => axios.get('/admin/info')
+
+//当天api请求量
 /**
  *
  * @param { String } date
  * 输入日期格式，例如：
  * 2019-11-02
  */
-export const getAdminInfo = () => axios.get('/admin/info')
-
-//当天api请求量
 export const apiCount = date => axios.get('/statis/api/' + date + '/count')
 
 //所有api请求量
@@ -77,6 +77,17 @@ export const adminCount = date => axios.get('/statis/admin/' + date + '/count')
 //所有管理员注册量
 export const allAdminCount = () => axios.get('/admin/count')
 
+//管理员列表
+/**
+ * 获取管理员列表数据
+ * @param {object} data
+ * @param {Number} data.limit(必传)
+ * @param {Number} data.offset(默认为0)
+ *
+ */
+export const getAdminList = data =>
+  axios.get('/admin/all?limit=' + data.limit + '&offset=' + (data.offset || 0))
+
 //用户列表
 /**
  *
@@ -99,6 +110,9 @@ export const userList = data =>
  * @param {Number} user_id
  */
 export const userInfo = user_id => axios.get('v1/user/' + user_id)
+
+// 用户分布信息
+export const getUserCity = () => axios.get('/v1/user/city/count')
 
 // 获取地址信息
 /**

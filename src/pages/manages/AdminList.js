@@ -1,41 +1,30 @@
 import React from 'react'
 import { Table } from 'antd'
 
+import { getAdminList, allAdminCount } from '../../api/getData'
+
 class AdminList extends React.Component {
   constructor() {
     super()
     this.state = {
-      adminListInfo: [
-        {
-          id: 1,
-          name: '张三',
-          createDate: '2019-2-12',
-          address: '深圳',
-          admin: '管理员'
-        },
-        {
-          id: 2,
-          name: '张三',
-          createDate: '2019-2-12',
-          address: '深圳',
-          admin: '管理员'
-        }
-      ]
+      adminListInfo: [],
+      total: 0
     }
     this.columns = [
       {
         title: () => <strong>姓名</strong>,
-        dataIndex: 'name',
-        align: 'center'
+        dataIndex: 'user_name',
+        align: 'center',
+        ellipsis: true
       },
       {
         title: () => <strong>注册日期</strong>,
-        dataIndex: 'createDate',
+        dataIndex: 'create_time',
         align: 'center'
       },
       {
         title: () => <strong>地址</strong>,
-        dataIndex: 'address',
+        dataIndex: 'city',
         align: 'center'
       },
       {
@@ -44,6 +33,15 @@ class AdminList extends React.Component {
         align: 'center'
       }
     ]
+  }
+  toSwitch = e => {
+    getAdminList({ limit: 10, offset: (e.current - 1) * 10 }).then(res => {
+      if (res.data.status === 1) {
+        this.setState({
+          adminListInfo: res.data.data
+        })
+      }
+    })
   }
   render() {
     return (
@@ -54,15 +52,36 @@ class AdminList extends React.Component {
           rowKey="id"
           pagination={{
             defaultCurrent: 1,
-            total: 100,
+            total: this.state.total,
             pageSize: 10,
             size: 'normal',
             style: { float: 'left' },
             showTotal: total => `共${total}条`
           }}
+          onChange={this.toSwitch}
         />
       </div>
     )
+  }
+  componentDidMount() {
+    let total = 0
+    allAdminCount()
+      .then(res => {
+        if (res.data.status === 1) {
+          // 获取管理员的数量
+          total = res.data.count
+          // 获取管理员列表数据
+          return getAdminList({ limit: 10 })
+        }
+      })
+      .then(res => {
+        if (res.data.status === 1) {
+          this.setState({
+            total,
+            adminListInfo: res.data.data
+          })
+        }
+      })
   }
 }
 export default AdminList

@@ -62,13 +62,15 @@ class Manage extends Component {
   showLogin = () => {
     this.setState({
       loginOutStyles: {
-        display: 'block'
+        transform: 'translateX(-50%)'
       }
     })
   }
   hiddenLogin = () => {
     this.setState({
-      loginOutStyles: {}
+      loginOutStyles: {
+        transform: 'translateX(100%)'
+      }
     })
   }
   toHome = () => {

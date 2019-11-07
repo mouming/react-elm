@@ -32,7 +32,6 @@
       position: relative;
       .login-out {
         position: absolute;
-        display: none;
         top: 60px;
         transition: all 3s;
         background: #fff;
@@ -40,7 +39,8 @@
         width: 100px;
         text-align: center;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(100%);
+        transition: transform 0.5s 0.5s;
         transform-origin: center top;
         box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
           0 2px 4px 0 rgba(154, 157, 165, 0.5);

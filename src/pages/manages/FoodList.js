@@ -157,7 +157,7 @@ class FoodList extends React.Component {
               >
                 <Row>
                   <Col span={12}>
-                    <Form.Item label="食品名称">123</Form.Item>
+                    <Form.Item label="食品名称2">13</Form.Item>
                     <Form.Item label="食品ID">123</Form.Item>
                     <Form.Item label="食品介绍">123</Form.Item>
                     <Form.Item label="食品评分">123</Form.Item>

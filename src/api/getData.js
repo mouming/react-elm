@@ -100,7 +100,7 @@ export const userList = data =>
  */
 export const userInfo = user_id => axios.get('v1/user/' + user_id)
 
-// 获取地址信息
+// 获取地址信息 
 /**
  * 获取地址信息
  * @param {Number} id
@@ -115,3 +115,12 @@ export const getAddress = id => axios.get('/v1/addresse/' + id)
  * id : 地址id
  */
 export const getShopInfo = id => axios.get('/shopping/restaurant/' + id)
+
+
+//城市信息
+export const getcity = date => axios.get('/v1/cities?type='+date)
+
+
+export const getshopping = data =>
+  axios.get(
+   '/shopping/restaurants?latitude=22.54286&longitude=114.059563&offset=0&limit=20')
